@@ -97,29 +97,44 @@
 <p><img src="http://wx2.sinaimg.cn/small/006gE8KUgy1ffgbmt781jj30dj09cjrd.jpg" alt="3"></p>
 </li>
 </ol>
-<h3 id="2-管理依赖库-1"><a href="#2-管理依赖库-1" class="headerlink" title="2.管理依赖库"></a>2.管理依赖库</h3><p>-1. 利用Gradle的通知机制</p>
-<pre><code>当项目依赖的库项目有更新之后，Gradle并不会立即通知主项目，但Gradle会给出一种通知机制，即利用Gradle的检查周期进行check，代码如下图
-</code></pre><p><img src="http://wx3.sinaimg.cn/small/006gE8KUgy1ffgerc2bi1j30bi01pq2p.jpg" alt="12"></p>
-<p>-2. 同时Gradle还提供了在依赖传递中的强制刷新配置。例如，在一个简单的compile语句中，代码如下如所示</p>
-<p>  <img src="http://wx3.sinaimg.cn/small/006gE8KUgy1ffge07rec4j30b401mwe9.jpg" alt="13"></p>
-<pre><code>如果增加一个属性transitive并让其值为true，则代表会强制刷新远程库，避免远程库更新后本地为刷新的问题。
-</code></pre><p>-3. 利用Gradle的依赖检查</p>
-<pre><code>上面一种方式利用了Gradle的被动通知机制，但是这种方式始终需要开发者进行check，只能算是一种被动的通知机制。
-
-实际上，利用gradle提供的task可以很方便地解决依赖问题，用到的gradle指令就是gradlew androidDependencies，使用后效果如下如所示
-</code></pre><p>  <img src="http://wx1.sinaimg.cn/small/006gE8KUgy1ffgeyzni50j30oh0rfmxa.jpg" alt="14"></p>
-<p>-4. Gradle依赖统一管理</p>
-<pre><code>利用Gradle全局变量实现这一管理，在根目录的build.gradle脚本中配置如下所示的代码。
-</code></pre><p>  <img src="http://wx1.sinaimg.cn/small/006gE8KUgy1ffgf9oou9uj30f803lmwy.jpg" alt="15"></p>
-<pre><code>在全局Gradle脚本中，制订了android和dependencies两个列表，并在其中配置了同意的参数和对应的值。这样每个module中，可以通过代码使用全局的依赖配置，代码如下
-</code></pre><p><img src="http://wx3.sinaimg.cn/small/006gE8KUgy1ffgfdbiyy3j30bk021jr5.jpg" alt="17"></p>
+<h3 id="2-管理依赖库-1"><a href="#2-管理依赖库-1" class="headerlink" title="2.管理依赖库"></a>2.管理依赖库</h3><ol>
+<li><p>利用Gradle的通知机制</p>
+<p> 当项目依赖的库项目有更新之后，Gradle并不会立即通知主项目，但Gradle会给出一种通知机制，即利用Gradle的检查周期进行check，代码如下图</p>
+</li>
+</ol>
+<p><img src="http://wx3.sinaimg.cn/small/006gE8KUgy1ffgerc2bi1j30bi01pq2p.jpg" alt="12"></p>
+<ol>
+<li><p>同时Gradle还提供了在依赖传递中的强制刷新配置。例如，在一个简单的compile语句中，代码如下如所示</p>
+<p><img src="http://wx3.sinaimg.cn/small/006gE8KUgy1ffge07rec4j30b401mwe9.jpg" alt="13"></p>
+<p> 如果增加一个属性transitive并让其值为true，则代表会强制刷新远程库，避免远程库更新后本地为刷新的问题。</p>
+</li>
+<li><p>利用Gradle的依赖检查</p>
+<p> 上面一种方式利用了Gradle的被动通知机制，但是这种方式始终需要开发者进行check，只能算是一种被动的通知机制。</p>
+<p> 实际上，利用gradle提供的task可以很方便地解决依赖问题，用到的gradle指令就是gradlew androidDependencies，使用后效果如下如所示</p>
+<p><img src="http://wx1.sinaimg.cn/small/006gE8KUgy1ffgeyzni50j30oh0rfmxa.jpg" alt="14"></p>
+</li>
+<li><p>Gradle依赖统一管理</p>
+<p> 利用Gradle全局变量实现这一管理，在根目录的build.gradle脚本中配置如下所示的代码。</p>
+<p><img src="http://wx1.sinaimg.cn/small/006gE8KUgy1ffgf9oou9uj30f803lmwy.jpg" alt="15"></p>
+<p> 在全局Gradle脚本中，制订了android和dependencies两个列表，并在其中配置了同意的参数和对应的值。这样每个module中，可以通过代码使用全局的依赖配置，代码如下</p>
+</li>
+</ol>
+<p><img src="http://wx3.sinaimg.cn/small/006gE8KUgy1ffgfdbiyy3j30bk021jr5.jpg" alt="17"></p>
 <p> <img src="http://wx1.sinaimg.cn/mw690/006gE8KUgy1ffgfcgcvvjj309y022gld.jpg" alt="16"></p>
-<h3 id="3-编译提速-1"><a href="#3-编译提速-1" class="headerlink" title="3.编译提速"></a>3.编译提速</h3><p>-1. Gradle在编译时会执行大量的Task，同时生成很多中间文件。所以我们可以通过在gradle.properties文件中增加如下图代码</p>
+<h3 id="3-编译提速-1"><a href="#3-编译提速-1" class="headerlink" title="3.编译提速"></a>3.编译提速</h3><ol>
+<li>Gradle在编译时会执行大量的Task，同时生成很多中间文件。所以我们可以通过在gradle.properties文件中增加如下图代码</li>
+</ol>
 <p><img src="http://wx1.sinaimg.cn/small/006gE8KUgy1ffgcfwc1kwj307g0250sh.jpg" alt="4"></p>
-<p>-2. 上诉代码表示开启Gradle的多线程和多核心支持，以此提高编译速度</p>
-<h3 id="4-增加编译内存-1"><a href="#4-增加编译内存-1" class="headerlink" title="4.增加编译内存"></a>4.增加编译内存</h3><p>-1. 在build.gradle文件中增加如下图所示代码</p>
+<ol>
+<li>上诉代码表示开启Gradle的多线程和多核心支持，以此提高编译速度</li>
+</ol>
+<h3 id="4-增加编译内存-1"><a href="#4-增加编译内存-1" class="headerlink" title="4.增加编译内存"></a>4.增加编译内存</h3><ol>
+<li>在build.gradle文件中增加如下图所示代码</li>
+</ol>
 <p><img src="http://wx4.sinaimg.cn/small/006gE8KUgy1ffgcfxbk0fj305w02cdfl.jpg" alt="5"></p>
-<p>-2. 上诉的代码，表示开启Gradle的增量编译，增加编译的内存资源到4G。</p>
+<ol>
+<li>上诉的代码，表示开启Gradle的增量编译，增加编译的内存资源到4G。</li>
+</ol>
 <h3 id="5-调用终端指令-1"><a href="#5-调用终端指令-1" class="headerlink" title="5.调用终端指令"></a>5.调用终端指令</h3><ol>
 <li><p>新建一个task，代码如下图所示</p>
 <p><img src="http://wx2.sinaimg.cn/small/006gE8KUgy1ffgct479w7j30eb01ujr5.jpg" alt="6"></p>
@@ -151,7 +166,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/07/实验四/" data-id="cj2e0jnmv00044omj4trm7a1d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/07/实验四/" data-id="cj2e0qo8p0001esmj8mu17pag" class="article-share-link">Share</a>
       
       
     </footer>
@@ -214,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/13/实验三/" data-id="cj2e0jnlh00034omjhk8b22ug" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/13/实验三/" data-id="cj2e0qoac0003esmjjed2zctz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -277,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/shiyaner/" data-id="cj2e0jnkn00014omjlf63hdqe" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/22/shiyaner/" data-id="cj2e0qoa70002esmjynhvg06w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -348,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/实验一/" data-id="cj2e0jnl500024omj0hxyn58p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/实验一/" data-id="cj2e0qoc80004esmj7u0rpjib" class="article-share-link">Share</a>
       
       
     </footer>
@@ -393,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/07/hello-world/" data-id="cj2e0jnk500004omjm2paoxzf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/07/hello-world/" data-id="cj2e0qo870000esmjcj4vf5xn" class="article-share-link">Share</a>
       
       
     </footer>
